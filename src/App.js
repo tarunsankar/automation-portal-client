@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Home from './page/Home';
-import Dashboard from './page/Dashboard';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import Login from './components/auth/Login';
+import Dashboard from './components/dashboard/Dashboard';
 
 
 class App extends Component {
@@ -15,7 +15,7 @@ class App extends Component {
             <div className="container-fluid h-100">
               <Header></Header>
               <Switch>
-                <Route exact path='/' component={Home}/>
+                <Route exact path='/' component={Login}/>
                 <Route exact path='/dashboard' component={Dashboard}/>
               </Switch>
             </div>

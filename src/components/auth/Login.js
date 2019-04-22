@@ -1,8 +1,8 @@
 import React from 'react'
-import BannerImg from '../images/automation.jpg'
+import BannerImg from '../../images/automation.jpg'
 
 
-const Home = (props) => {
+const Login = (props) => {
 
   document.body.classList.add("login-page");
 
@@ -66,4 +66,4 @@ const Home = (props) => {
   )
 }
 
-export default Home
+export default Login
