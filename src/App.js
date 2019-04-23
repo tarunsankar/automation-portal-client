@@ -4,9 +4,16 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
+import { connect } from 'react-redux'
+import { updateToken } from './store/actions/authActions';
 
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.updateToken();
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -27,4 +34,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    updateToken: () => dispatch(updateToken())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);

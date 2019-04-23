@@ -20,9 +20,22 @@ const authReducer = (state = initState, action) => {
             authError: null
         }
 
+
+        case 'UPDATE_TOKEN':
+        console.log('login success',action.data);
+        return {
+            ...state,
+            token: action.data,
+            authError: null
+        }
+
         case 'SIGNOUT_SUCCESS':
         console.log('signout success');
-        return state;
+        return {
+            ...state,
+            token: null,
+            authError: null
+        }        
 
         default:
         return state
