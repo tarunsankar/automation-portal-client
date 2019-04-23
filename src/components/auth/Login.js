@@ -1,30 +1,34 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { signIn } from '../../store/actions/authActions';
 import BannerImg from '../../images/automation.jpg'
+import { Redirect } from 'react-router-dom';
 
 
 class Login extends Component {
 
     state = {
-      email: '',
+      username: '',
       password: ''
     }
 
     handleChange = (e) => {
       this.setState({
         [e.target.id]: e.target.value
-      }, () => {
-        console.log("New state in ASYNC callback:", this.state);
       });
     }
 
     handleSubmit = (e) => {
       e.preventDefault();
       console.log("on submit", this.state);
-      // this.props.signIn(this.state)
+      this.props.signIn(this.state);
     }
 
     render() {
+
+        if(this.props.token){
+            return <Redirect to='/' />
+        }
 
         document.body.classList.add("login-page");
 
@@ -43,18 +47,12 @@ class Login extends Component {
                             <form className="my-login-validation" onSubmit={this.handleSubmit}>
                                 <div className="form-group">
                                     <label>User Name</label>
-                                    <input id="email" type="text" className="form-control" name="userName" required autoFocus onChange={this.handleChange}/>
-                                    <div className="invalid-feedback">
-                                        User Name is invalid
-                                    </div>
+                                    <input id="username" type="text" className="form-control" name="username" required autoFocus onChange={this.handleChange}/>
                                 </div>
 
                                 <div className="form-group">
                                     <label>Password</label>
                                     <input id="password" type="password" className="form-control" name="password" required data-eye  onChange={this.handleChange}/>
-                                    <div className="invalid-feedback">
-                                        Password is required
-                                    </div>
                                 </div>
 
                                 <div className="form-group m-0">
@@ -62,6 +60,13 @@ class Login extends Component {
                                         Login
                                     </button>
                                 </div>
+
+                                <div className="form-group">
+                                    <div className="center">
+                                        { this.props.authError ? <p>{this.props.authError}</p> : null }
+                                    </div>
+                                </div>
+
                             </form>
                         </div>
                     </div>
@@ -72,4 +77,18 @@ class Login extends Component {
     }
 }
 
-export default Login
+
+const mapStateToProps = (state) => {
+    return{
+      authError: state.auth.authError,
+      token : state.auth.token
+    }
+}
+  
+const mapDispatchToProps = (dispatch) => {
+    return {
+      signIn: (creds) => dispatch(signIn(creds))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

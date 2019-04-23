@@ -1,5 +1,6 @@
 const initState = {
-   authError: null
+   authError: null,
+   token: null
 }
   
 const authReducer = (state = initState, action) => {
@@ -12,9 +13,10 @@ const authReducer = (state = initState, action) => {
         }
 
         case 'LOGIN_SUCCESS':
-        console.log('login success');
+        console.log('login success',action.data.token);
         return {
             ...state,
+            token: action.data.token,
             authError: null
         }
 

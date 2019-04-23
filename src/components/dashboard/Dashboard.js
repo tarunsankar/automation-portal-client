@@ -2,18 +2,28 @@ import React, { Component } from 'react';
 import Card from './Card';
 import { connect } from 'react-redux';
 import { getCards } from '../../store/actions/dashboardActions';
+import { Redirect } from 'react-router-dom';
 
 class Dashboard extends Component {
 
     componentDidMount() {
-        this.props.getCards();
+        const { cards, token } = this.props;
+
+        if(token){
+            this.props.getCards();
+        }
     }
 
     render () {
 
-        const { cards } = this.props;
+        const { cards, token } = this.props;
+
+        if(!token){
+            return <Redirect to='/login' />
+        }
 
         document.body.classList.add("dashboard");
+        
         return (
             <div className="apps row justify-content-md-center h-100">
                 <Card cards={cards}/>
@@ -24,7 +34,8 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        cards : state.dashboard.cards
+        cards : state.dashboard.cards,
+        token: state.auth.token
     }
 }
 
