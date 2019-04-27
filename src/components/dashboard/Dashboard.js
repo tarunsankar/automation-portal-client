@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 class Dashboard extends Component {
 
     componentDidMount() {
-        const { cards, token } = this.props;
+        const { token } = this.props;
 
         if(token){
             this.props.getCards();
@@ -25,9 +25,7 @@ class Dashboard extends Component {
         document.body.classList.add("dashboard");
         
         return (
-            <div className="apps row justify-content-md-center h-100">
-                <Card cards={cards}/>
-            </div>
+            <Card cards={cards}/>
         )
     }
 }

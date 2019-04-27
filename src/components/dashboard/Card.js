@@ -5,7 +5,7 @@ const Card = (props) => {
     const { cards } = props;
 
     return (
-        <div className='row justify-content-md-center h-100'>
+        <div className='apps row justify-content-md-center h-100'>
             { cards && cards.map(card => {
                 return (
                     <div className="col-md-4" key={card.id}>
